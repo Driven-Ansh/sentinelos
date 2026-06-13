@@ -1,0 +1,5 @@
+services:
+  - type: static
+    name: sentinelos
+    buildCommand: npm run build
+    staticPublishPath: out
