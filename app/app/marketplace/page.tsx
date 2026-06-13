@@ -50,7 +50,7 @@ export default function MarketplacePage() {
           <p className="text-sm text-slate-400 mt-1">{formatNumber(agents.length)} certified agents available · Updated live</p>
         </div>
         <Link
-          href="/app/developer"
+          href="/app/developer?open=true"
           className="flex items-center gap-2 bg-sky-500/10 border border-sky-500/30 text-sky-400 px-4 py-2 rounded-lg text-sm hover:bg-sky-500/20 transition-colors"
         >
           <Shield className="w-4 h-4" />

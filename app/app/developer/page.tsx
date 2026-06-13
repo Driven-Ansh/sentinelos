@@ -1,15 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Code2, BarChart3, Star, ArrowUpRight, Upload, TrendingUp, DollarSign, X, CheckCircle, ShieldAlert, Cpu, Database, Network } from 'lucide-react';
 import { agents } from '@/lib/mock-data';
 import { pageTransition, staggerContainer, staggerItem } from '@/lib/animations';
 import { formatNumber } from '@/lib/utils';
 
-export default function DeveloperPage() {
+function DeveloperPageContent() {
+  const searchParams = useSearchParams();
+  const shouldOpen = searchParams.get('open') === 'true';
   const [myAgents, setMyAgents] = useState(agents.slice(0, 3));
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(shouldOpen);
   
   // Form state
   const [agentName, setAgentName] = useState('');
@@ -420,5 +423,13 @@ export default function DeveloperPage() {
         )}
       </AnimatePresence>
     </motion.div>
+  );
+}
+
+export default function DeveloperPage() {
+  return (
+    <Suspense fallback={<div className="text-white text-xs">Loading Developer Hub...</div>}>
+      <DeveloperPageContent />
+    </Suspense>
   );
 }

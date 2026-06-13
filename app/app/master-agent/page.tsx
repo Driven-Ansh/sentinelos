@@ -56,11 +56,13 @@ function AgentRelationGraph({ activeThreatNode, isMitigating }: { activeThreatNo
               />
               {/* Animated data packet */}
               <motion.circle
+                cx={s.x}
+                cy={s.y}
                 r={isTargetThreat ? '3.5' : '2.5'}
                 fill={isTargetThreat ? '#EF4444' : '#0EA5E9'}
                 animate={{
-                  x: [s.x, t.x],
-                  y: [s.y, t.y],
+                  cx: [s.x, t.x],
+                  cy: [s.y, t.y],
                   opacity: [0, 1, 0],
                 }}
                 transition={{ duration: isTargetThreat ? 1 : 2, repeat: Infinity, delay: i * 0.4, ease: 'linear' }}
@@ -199,8 +201,10 @@ export default function MasterAgentPage() {
 
     let step = 0;
     const interval = setInterval(() => {
-      setSimulationLogs(prev => [...prev, cfg.logs[step]]);
-      step += 1;
+      if (step < cfg.logs.length) {
+        setSimulationLogs(prev => [...prev, cfg.logs[step]]);
+        step += 1;
+      }
       
       if (step >= cfg.logs.length) {
         clearInterval(interval);
@@ -339,12 +343,12 @@ export default function MasterAgentPage() {
                   Ready. Click 'Launch Incident Simulation' to start.
                 </div>
               )}
-              {simulationLogs.map((log, idx) => (
+              {simulationLogs.filter(Boolean).map((log, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, x: -5 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className={log.startsWith('✅') ? 'text-emerald-400 font-bold' : log.startsWith('⚠️') ? 'text-red-400 font-bold animate-pulse' : 'text-slate-300'}
+                  className={log?.startsWith('✅') ? 'text-emerald-400 font-bold' : log?.startsWith('⚠️') ? 'text-red-400 font-bold animate-pulse' : 'text-slate-300'}
                 >
                   {log}
                 </motion.div>

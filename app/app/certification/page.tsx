@@ -52,10 +52,13 @@ export default function CertificationPage() {
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Space Grotesk' }}>Certification Center</h1>
           <p className="text-sm text-slate-400 mt-1">12-stage automated certification pipeline for AI agents</p>
         </div>
-        <button className="flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+        <Link
+          href="/app/developer?open=true"
+          className="flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+        >
           <Plus className="w-4 h-4" />
           Submit Agent
-        </button>
+        </Link>
       </div>
 
       {/* Overview cards */}
